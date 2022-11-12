@@ -1,7 +1,11 @@
-import 'dart:html';
-
+// import 'dart:html';
+import 'dart:ui';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'NavBar.dart';
+import 'sliders.dart';
+import 'dart:io';
+// import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,58 +13,55 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);
+  // this.setWindowTitle("Custom window title");
 
   @override
   Widget build(BuildContext context) {
-    const appName = 'Protech Solutions';
-
-    final PageController ctrl = PageController(
-      viewportFraction: 1.0,
-    );
-
-    List<String> carousel = [
-      "assets/images/x1.png",
-      "assets/images/x2.png",
-      "assets/images/x3.png",
-      "assets/images/x4.png"
-    ];
+    const appName = 'Protech Corporation Information System';
+    try {
+      if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+        DesktopWindow.setFullScreen(true);
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+    ;
 
     return MaterialApp(
+      scrollBehavior:
+          AppScrollBehavior(), //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.amber,
       ),
       home: Scaffold(
         endDrawer: const NavBar(),
         appBar: AppBar(
           leading: Image.asset("assets/images/protech.png"),
-          title: const Text('Protech Solutions'),
+          title: const Text(
+            'Protech Corporation',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           // actions: [],
           centerTitle: false,
         ),
         // ignore: avoid_unnecessary_containers
         body: Container(
+          margin: const EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 0),
+
+          color: Colors.black,
+          // margin: const EdgeInsets.all(0),
           child: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
               children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: PageView.builder(
-                    controller: ctrl,
-                    itemCount: 4,
-                    physics: const BouncingScrollPhysics(),
-                    pageSnapping: true,
-                    itemBuilder: (context, pagePosition) {
-                      return Container(
-                        padding: EdgeInsets.zero,
-                        // margin: const EdgeInsets.all(0),
-                        child: Image.asset(carousel[pagePosition],
-                            fit: BoxFit.fill),
-                      );
-                    },
-                  ),
+                const Flexible(
+                  // width: double.infinity,
+                  flex: 2,
+                  // margin: EdgeInsets.all(0),
+                  child: Sliders(),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -69,14 +70,15 @@ class MainApp extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                        "   Copyright © 2022 - 2030, All rights ® reserved, Proech Solutions...",
-                        style: TextStyle(fontSize: 11),
-                        textAlign: TextAlign.left),
+                      "   Copyright © 2022 - 2030, All rights ® reserved, Protech Corporation ™",
+                      style: TextStyle(fontSize: 11, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
                     SizedBox(
                       height: 10,
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -84,4 +86,13 @@ class MainApp extends StatelessWidget {
       ),
     );
   }
+}
+
+//SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
+class AppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
