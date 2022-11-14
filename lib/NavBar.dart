@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'aboutus.dart';
+import 'login.dart';
+import 'signup.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -115,14 +117,22 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.person_pin),
             title: const Text("Sign-In"),
             // ignore: avoid_print
-            onTap: () => print("sign in"),
+            onTap: () {
+              try {
+                userLogin(context);
+              } catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
+            },
           ),
           ListTile(
-            leading: const Icon(Icons.person_add),
-            title: const Text("Register"),
-            // ignore: avoid_print
-            onTap: () => print("regitster"),
-          ),
+              leading: const Icon(Icons.person_add),
+              title: const Text("Register"),
+              // ignore: avoid_print
+              onTap: () {
+                userRegistration(context);
+              }),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text("Exit"),

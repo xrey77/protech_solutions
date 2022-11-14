@@ -1,12 +1,12 @@
 // import 'dart:html';
-import 'dart:ui';
-import 'package:desktop_window/desktop_window.dart';
+// import 'dart:ui';
+// import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
-import 'NavBar.dart';
+import 'navbar.dart';
 import 'sliders.dart';
-import 'dart:io';
-// import 'package:bitsdojo_window/bitsdojo_window.dart';
+// import 'dart:io';
 
+// import 'package:bitsdojo_window/bitsdojo_window.dart';
 void main() {
   runApp(const MainApp());
 }
@@ -17,20 +17,20 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appName = 'Protech Corporation Information System';
-    try {
-      if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-        DesktopWindow.setFullScreen(true);
-      }
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-    ;
+    const appName = 'Protech Corporation';
+    // try {
+    //   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    //     DesktopWindow.setFullScreen(true);
+    //   }
+    // } catch (e) {
+    //   // ignore: avoid_print
+    //   print(e);
+    // }
+    // ;
 
     return MaterialApp(
-      scrollBehavior:
-          AppScrollBehavior(), //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
+      // scrollBehavior:
+      //     AppScrollBehavior(), //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: ThemeData(
@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
         appBar: AppBar(
           leading: Image.asset("assets/images/protech.png"),
           title: const Text(
-            'Protech Corporation',
+            'Management Information System',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           // actions: [],
@@ -89,10 +89,10 @@ class MainApp extends StatelessWidget {
 }
 
 //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
-class AppScrollBehavior extends MaterialScrollBehavior {
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-      };
-}
+// class AppScrollBehavior extends MaterialScrollBehavior {
+//   @override
+//   Set<PointerDeviceKind> get dragDevices => {
+//         PointerDeviceKind.touch,
+//         PointerDeviceKind.mouse,
+//       };
+// }

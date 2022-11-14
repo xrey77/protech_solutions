@@ -30,8 +30,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  awesome_dialog: ^3.0.2
+  awesome_dialog: any
   desktop_window: ^0.4.0
+  flutter_session: ^0.0.7
+  # session: ^1.0.5  #latest version
+
 
 dev_dependencies:
   flutter_test:
