@@ -2,23 +2,50 @@ import 'package:flutter/material.dart';
 import 'aboutus.dart';
 import 'login.dart';
 import 'signup.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
-class NavBar extends StatelessWidget {
+// class NavBar extends StatelessWidget {
+//   const NavBar({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {}
+// }
+
+class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
-// Create a key
+
+  @override
+  State<NavBar> createState() => _State();
+}
+
+class _State extends State<NavBar> {
+  @override
+  void initState() {
+    super.initState();
+    try {
+      Future<dynamic> _name = SessionManager().get('USERNAME');
+      String xname = _name.toString();
+      // ignore: avoid_print
+      print(xname);
+      // ignore: empty_catches
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
-    // const about = Aboutus();
     return Drawer(
-      key: _key,
       child: ListView(
         padding: EdgeInsets.zero, //REMOVE WHITE SPACE AT THE TOP
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text("REY GRAGASIN"),
-            accountEmail: const Text("rey107@gmail.com"),
+            accountName: const Text(
+              'REY GRAGASIN',
+              style: TextStyle(color: Colors.white),
+            ),
+            accountEmail: const Text(
+              "rey107@gmail.com",
+              style: TextStyle(color: Colors.white),
+            ),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset("assets/images/admin.jpeg", //USER IMAGE
@@ -116,20 +143,13 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.person_pin),
             title: const Text("Sign-In"),
-            // ignore: avoid_print
-            onTap: () {
-              try {
-                userLogin(context);
-              } catch (e) {
-                // ignore: avoid_print
-                print(e);
-              }
+            onTap: () async {
+              await modalDialog(context);
             },
           ),
           ListTile(
               leading: const Icon(Icons.person_add),
               title: const Text("Register"),
-              // ignore: avoid_print
               onTap: () {
                 userRegistration(context);
               }),

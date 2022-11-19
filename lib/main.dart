@@ -1,12 +1,10 @@
-// import 'dart:html';
-// import 'dart:ui';
-// import 'package:desktop_window/desktop_window.dart';
+import 'dart:ui';
+// ignore: unused_import
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'navbar.dart';
 import 'sliders.dart';
-// import 'dart:io';
 
-// import 'package:bitsdojo_window/bitsdojo_window.dart';
 void main() {
   runApp(const MainApp());
 }
@@ -29,8 +27,8 @@ class MainApp extends StatelessWidget {
     // ;
 
     return MaterialApp(
-      // scrollBehavior:
-      //     AppScrollBehavior(), //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
+      scrollBehavior:
+          AppScrollBehavior(), //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
       debugShowCheckedModeBanner: false,
       title: appName,
       theme: ThemeData(
@@ -89,10 +87,10 @@ class MainApp extends StatelessWidget {
 }
 
 //SET THE SCROLL BEHAVIOR TO MOUSE AND TOUCH SCREEN
-// class AppScrollBehavior extends MaterialScrollBehavior {
-//   @override
-//   Set<PointerDeviceKind> get dragDevices => {
-//         PointerDeviceKind.touch,
-//         PointerDeviceKind.mouse,
-//       };
-// }
+class AppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}

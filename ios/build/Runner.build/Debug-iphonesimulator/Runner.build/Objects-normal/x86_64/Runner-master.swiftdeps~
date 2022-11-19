@@ -1,0 +1,5 @@
+version: "Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)"
+options: "a1c2b92b539a28c713dcfaefbeeb9b28"
+build_time: [1668595375, 791230000]
+inputs:
+  "/Users/reynald/My-Programs/Flutter/protech_solutions/ios/Runner/AppDelegate.swift": [1650309730, 0]

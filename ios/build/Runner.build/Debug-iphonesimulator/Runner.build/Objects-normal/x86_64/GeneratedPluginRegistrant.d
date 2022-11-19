@@ -1,0 +1,22 @@
+dependencies: \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/ios/Runner/GeneratedPluginRegistrant.m \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/ios/Runner/GeneratedPluginRegistrant.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Modules/module.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/include/mach-o/compact_unwind_encoding.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/include/mach-o/dyld.modulemap \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterViewController.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterHeadlessDartRunner.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterEngineGroup.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterEngine.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterDartProject.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterCallbackCache.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterTexture.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPlatformViews.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterCodecs.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterChannels.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterBinaryMessenger.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterPlugin.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterMacros.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/FlutterAppDelegate.h \
+  /Users/reynald/My-Programs/Flutter/protech_solutions/build/ios/Debug-iphonesimulator/Flutter.framework/Headers/Flutter.h

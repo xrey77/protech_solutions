@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'utility.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_session/flutter_session.dart';
+// import 'package:flutter_session/flutter_session.dart';
 
 final lastnameController = TextEditingController();
 final firstnameController = TextEditingController();
@@ -187,7 +187,7 @@ submitLoginData(context, String lname, String fname, String emailadd,
     String mobile, String usrname, String passwd) async {
   var client = http.Client();
   try {
-    final url = Uri.parse("http://localhost:5100/api/user/signup");
+    final url = Uri.parse("http://localhost:9000/user/register");
     final headers = {'Content-Type': 'application/json'};
     Map<String, dynamic> body = {
       'lastname': lname,
@@ -203,21 +203,15 @@ submitLoginData(context, String lname, String fname, String emailadd,
     Response response = await client.post(url,
         headers: headers, body: jsonbody, encoding: encoding);
     int statuscode = response.statusCode;
-    Map<String, dynamic> responseJson = json.decode(response.body);
+    Map<String, dynamic> responseJson = jsonDecode(response.body);
     if (statuscode == 200) {
-      var session = FlutterSession();
-      await session.set("ID", responseJson['userid']);
-      await session.set("FULLNAME", responseJson['full_name']);
-      await session.set("USERNAME", responseJson['username']);
-      await session.set("EMAIL", responseJson['email']);
-      await session.set("MOBILENO", responseJson['mobile_no']);
-      await session.set("TOKEN", responseJson['token']);
-      alertMesage(context, "You have successfully logged-in to your account.");
+      alertIOSMesage(context, "You have successfully logged-in to your account.");
     } else {
-      alertMesage(context, responseJson[statuscode].toString());
+      // alertIOSMesage(context, responseJson[statuscode].toString());
     }
   } on Exception catch (ex) {
-    alertMesage(context, ex.toString());
+    // alertIOSMesage(context, ex);
+    print("Error 2 :");
   } finally {
     client.close();
   }
