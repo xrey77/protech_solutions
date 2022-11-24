@@ -2,20 +2,27 @@ import 'dart:ui';
 // ignore: unused_import
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
+import 'package:protech_solutions/locator.dart';
 import 'navbar.dart';
 import 'sliders.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+
+String _userName = "";
 
 void main() {
+  setup();
+
   runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);
-  // this.setWindowTitle("Custom window title");
 
   @override
   Widget build(BuildContext context) {
     const appName = 'Protech Corporation';
+    // dynamic xName = getSessionz();
+
     // try {
     //   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     //     DesktopWindow.setFullScreen(true);
@@ -25,6 +32,9 @@ class MainApp extends StatelessWidget {
     //   print(e);
     // }
     // ;
+    // xName = _userName as Future<void>;
+    // // ignore: avoid_print
+    // print(xName);
 
     return MaterialApp(
       scrollBehavior:
@@ -35,7 +45,7 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       home: Scaffold(
-        endDrawer: const NavBar(),
+        endDrawer: const NavBar(appUsername: ""),
         appBar: AppBar(
           leading: Image.asset("assets/images/protech.png"),
           title: const Text(
@@ -93,4 +103,13 @@ class AppScrollBehavior extends MaterialScrollBehavior {
         PointerDeviceKind.touch,
         PointerDeviceKind.mouse,
       };
+}
+
+void clearSession() async {
+  await SessionManager().destroy();
+}
+
+Future<void> getSessionz() async {
+  dynamic xname = await SessionManager().get("USERNAME");
+  _userName = xname;
 }

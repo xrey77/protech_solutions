@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:protech_solutions/login.dart';
 // import 'package:protech_solutions/main.dart';
 import 'dart:convert';
 import 'utility.dart';
@@ -155,7 +156,7 @@ userRegistration(context) {
             isFixedHeight: false,
             text: 'Submit',
             pressEvent: () {
-              submitLoginData(
+              submitSignupData(
                   context,
                   lastnameController.text,
                   firstnameController.text,
@@ -183,8 +184,8 @@ userRegistration(context) {
   ).show();
 }
 
-submitLoginData(context, String lname, String fname, String emailadd,
-    String mobile, String usrname, String passwd) async {
+submitSignupData(BuildContext context, String lname, String fname,
+    String emailadd, String mobile, String usrname, String passwd) async {
   var client = http.Client();
   try {
     final url = Uri.parse("http://localhost:9000/user/register");
@@ -192,10 +193,10 @@ submitLoginData(context, String lname, String fname, String emailadd,
     Map<String, dynamic> body = {
       'lastname': lname,
       'firstname': fname,
-      'emailadd': emailadd,
-      'mobileno': mobile,
+      'email': emailadd,
+      'mobile': mobile,
       'username': usrname,
-      'passwd': passwd,
+      'password': passwd,
     };
     String jsonbody = json.encode(body);
     final encoding = Encoding.getByName('utf-8');
@@ -205,13 +206,19 @@ submitLoginData(context, String lname, String fname, String emailadd,
     int statuscode = response.statusCode;
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     if (statuscode == 200) {
-      alertIOSMesage(context, "You have successfully logged-in to your account.");
+      alertIOSMesage(
+          context, "You have successfully logged-in to your account.");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
     } else {
-      // alertIOSMesage(context, responseJson[statuscode].toString());
+      int? code = statuscode;
+      alertIOSMesage(context, code.toString());
     }
   } on Exception catch (ex) {
-    // alertIOSMesage(context, ex);
-    print("Error 2 :");
+    alertIOSMesage(context, ex.toString());
+    // print("Error 2 :");
   } finally {
     client.close();
   }

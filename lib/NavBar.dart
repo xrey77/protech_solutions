@@ -1,35 +1,15 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_session_manager/flutter_session_manager.dart';
+// import 'package:get_it/get_it.dart';
+// import 'package:protech_solutions/locator.dart';
 import 'aboutus.dart';
+// import 'getsession.dart';
 import 'login.dart';
 import 'signup.dart';
-import 'package:flutter_session_manager/flutter_session_manager.dart';
+// import 'package:flutter_session_manager/flutter_session_manager.dart';
 
-// class NavBar extends StatelessWidget {
-//   const NavBar({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {}
-// }
-
-class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
-
-  @override
-  State<NavBar> createState() => _State();
-}
-
-class _State extends State<NavBar> {
-  @override
-  void initState() {
-    super.initState();
-    try {
-      Future<dynamic> _name = SessionManager().get('USERNAME');
-      String xname = _name.toString();
-      // ignore: avoid_print
-      print(xname);
-      // ignore: empty_catches
-    } catch (e) {}
-  }
+class NavBar extends StatelessWidget {
+  const NavBar({Key? key, appUsername}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +19,7 @@ class _State extends State<NavBar> {
         children: [
           UserAccountsDrawerHeader(
             accountName: const Text(
-              'REY GRAGASIN',
+              "Reynald",
               style: TextStyle(color: Colors.white),
             ),
             accountEmail: const Text(
@@ -144,7 +124,12 @@ class _State extends State<NavBar> {
             leading: const Icon(Icons.person_pin),
             title: const Text("Sign-In"),
             onTap: () async {
-              await modalDialog(context);
+              await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Login()),
+              );
+
+              // await modalDialog(context);
             },
           ),
           ListTile(
@@ -156,7 +141,8 @@ class _State extends State<NavBar> {
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text("Exit"),
-            onTap: () {
+            onTap: () async {
+              // await SessionManager().destroy();
               Navigator.pop(context);
             },
           ),
@@ -165,3 +151,17 @@ class _State extends State<NavBar> {
     );
   }
 }
+
+
+
+// xgetSession() {
+//   String xname = "";
+//   try {
+//     dynamic uname = SessionManager().get("USERNAME");
+//     xname = uname.toString();
+//   } catch (e) {
+//     xname = "Error";
+//   }
+
+//   return xname;
+// }
