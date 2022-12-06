@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:protech_solutions/navbar.dart';
 import 'navbar.dart';
 
-class AboutusPage extends StatelessWidget {
-  const AboutusPage({Key? key}) : super(key: key);
+class SharePage extends StatelessWidget {
+  const SharePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,9 @@ class AboutusPage extends StatelessWidget {
           // actions: [],
           centerTitle: false,
         ),
-        endDrawer: const NavBar(),
         body: const Center(
           child: Text(
-            "About Us",
+            "Share",
             style: TextStyle(fontSize: 44),
           ),
         ),

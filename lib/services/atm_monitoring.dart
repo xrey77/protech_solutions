@@ -1,10 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:protech_solutions/navbar.dart';
-import 'navbar.dart';
 
-class AboutusPage extends StatelessWidget {
-  const AboutusPage({Key? key}) : super(key: key);
+class ATMonitoring extends StatelessWidget {
+  const ATMonitoring({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +19,9 @@ class AboutusPage extends StatelessWidget {
           // actions: [],
           centerTitle: false,
         ),
-        endDrawer: const NavBar(),
         body: const Center(
           child: Text(
-            "About Us",
+            "ATM Monitoring 24/7",
             style: TextStyle(fontSize: 44),
           ),
         ),

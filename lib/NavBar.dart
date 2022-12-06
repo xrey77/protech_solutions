@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:protech_solutions/aboutus.dart';
+import 'package:protech_solutions/contactus.dart';
+import 'package:protech_solutions/products/automated_teller.dart';
+import 'package:protech_solutions/products/self_service.dart';
+import 'package:protech_solutions/services/atm_monitoring.dart';
+import 'package:protech_solutions/services/atm_parts.dart';
+import 'package:protech_solutions/services/bank_software.dart';
+import 'package:protech_solutions/services/field_services.dart';
+import 'package:protech_solutions/share.dart';
 // import 'package:flutter_session_manager/flutter_session_manager.dart';
 // import 'package:get_it/get_it.dart';
 // import 'package:protech_solutions/locator.dart';
-import 'aboutus.dart';
 // import 'getsession.dart';
 import 'login.dart';
+import 'main.dart';
 import 'signup.dart';
+
 // import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({Key? key, appUsername}) : super(key: key);
+  const NavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +54,20 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
               leading: const Icon(Icons.favorite),
-              title: const Text("About Us"),
+              title: const Text("Home"),
               // ignore: avoid_print
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Aboutus()),
+                  MaterialPageRoute(builder: (context) => App()),
                 );
+              }),
+          ListTile(
+              leading: const Icon(Icons.favorite),
+              title: const Text("About Us"),
+              // ignore: avoid_print
+              onTap: () {
+                // ABOUT US
               }),
           ExpansionTile(
             title: const Text("Services"),
@@ -60,26 +77,30 @@ class NavBar extends StatelessWidget {
               ListTile(
                 title: const Text("ATM Monitoring 24/7"),
                 onTap: () {
-                  //action on press
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ATMonitoring()));
                 },
               ),
 
               ListTile(
                 title: const Text("Bank Software Solutions"),
                 onTap: () {
-                  //action on press
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const BankSoftware()));
                 },
               ),
               ListTile(
                 title: const Text("ATM parts replacement"),
                 onTap: () {
-                  //action on press
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ATMParts()));
                 },
               ),
               ListTile(
                 title: const Text("Field Services Maintenance"),
                 onTap: () {
-                  //action on press
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const FieldServices()));
                 },
               ),
 
@@ -94,14 +115,16 @@ class NavBar extends StatelessWidget {
               ListTile(
                 title: const Text("Self Service Terminals"),
                 onTap: () {
-                  //action on press
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SelfService()));
                 },
               ),
 
               ListTile(
                 title: const Text("Automated Teller Safes"),
                 onTap: () {
-                  //action on press
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AutomatedTeller()));
                 },
               ),
 
@@ -112,21 +135,26 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.contact_phone),
             title: const Text("Contact Us"),
             // ignore: avoid_print
-            onTap: () => print("contact us.."),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ContactUs()));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.share),
             title: const Text("Share"),
             // ignore: avoid_print
-            onTap: () => print("Share"),
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const SharePage()));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.person_pin),
             title: const Text("Sign-In"),
             onTap: () async {
-              await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage()),
               );
 
               // await modalDialog(context);
@@ -151,8 +179,6 @@ class NavBar extends StatelessWidget {
     );
   }
 }
-
-
 
 // xgetSession() {
 //   String xname = "";

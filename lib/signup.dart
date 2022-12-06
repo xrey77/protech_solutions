@@ -23,6 +23,7 @@ userRegistration(context) {
     width: 600.0,
     animType: AnimType.scale,
     dialogType: DialogType.success,
+    dismissOnTouchOutside: false,
     autoDismiss: true,
     // onDismissCallback: (type) {
     //   print('onDismissCallback');
@@ -45,6 +46,12 @@ userRegistration(context) {
             elevation: 0,
             color: Colors.blueGrey.withAlpha(40),
             child: TextFormField(
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return;
+                }
+                return;
+              },
               autofocus: true,
               minLines: 1,
               controller: lastnameController,
@@ -186,6 +193,38 @@ userRegistration(context) {
 
 submitSignupData(BuildContext context, String lname, String fname,
     String emailadd, String mobile, String usrname, String passwd) async {
+  if (emailadd.isNotEmpty) {
+    int mail1 = emailadd.indexOf(RegExp(r'@'));
+    if (mail1 == -1) {
+      alertIOSMesage(context, "Please enter valid Email Address.");
+      return;
+    }
+    int mail2 = emailadd.indexOf('.');
+    if (mail2 == -1) {
+      alertIOSMesage(context, "Please enter valid Email Address.");
+      return;
+    }
+  }
+
+  if (lname.isEmpty) {
+    alertIOSMesage(context, "Please enter Last Name");
+    return;
+  } else if (fname.isEmpty) {
+    alertIOSMesage(context, "Please enter First Name.");
+    return;
+  } else if (emailadd.isEmpty) {
+    alertIOSMesage(context, "Please enter Email Address.");
+    return;
+  } else if (mobile.isEmpty) {
+    alertIOSMesage(context, "Please enter Mobile No.");
+    return;
+  } else if (usrname.isEmpty) {
+    alertIOSMesage(context, "Please enter User Name.");
+    return;
+  } else if (passwd.isEmpty) {
+    alertIOSMesage(context, "Please enter Password.");
+    return;
+  }
   var client = http.Client();
   try {
     final url = Uri.parse("http://localhost:9000/user/register");
@@ -208,13 +247,13 @@ submitSignupData(BuildContext context, String lname, String fname,
     if (statuscode == 200) {
       alertIOSMesage(
           context, "You have successfully logged-in to your account.");
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Login()),
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
     } else {
-      int? code = statuscode;
-      alertIOSMesage(context, code.toString());
+      // int? code = statuscode;
+      alertIOSMesage(context, responseJson['message']);
+      return;
     }
   } on Exception catch (ex) {
     alertIOSMesage(context, ex.toString());

@@ -1,0 +1,23 @@
+part '.gr.dart';
+
+@MaterialAutoRouter(
+  routes: <AutoRoute>[
+    MaterialRoute(page: HomePage, initial: true),
+    MaterialRoute(page: LoginPage),
+    MaterialRoute(page: Aboutus),
+  ],
+)
+class $Router {}
+
+// @MaterialAutoRouter(
+//   replaceInRouteName: 'Page,Route',
+//   routes: <AutoRoute>[
+//     AutoRoute(page: HomePage, initial: true),
+//     AutoRoute(page: LoginPage),
+//   ],
+// )
+
+// extend the generated private router
+// class AppRouter extends _$AppRouter {}
+
+// flutter pub run build_runner watch --delete-conflicting-outputs

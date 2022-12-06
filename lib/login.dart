@@ -24,16 +24,25 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 final usrController = TextEditingController();
 final pwdController = TextEditingController();
 
-class Login extends StatelessWidget {
-  const Login({Key? key, appUsername}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Protech Corporation",
-        theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFEFEFEF)),
+        theme: ThemeData(primarySwatch: Colors.amber),
         home: Scaffold(
+          appBar: AppBar(
+            leading: Image.asset("assets/images/protech.png"),
+            title: const Text(
+              'Management Information System',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            // actions: [],
+            centerTitle: false,
+          ),
           body: Container(
             margin: const EdgeInsets.only(
                 left: 200, top: 150, right: 200, bottom: 0),
@@ -91,10 +100,10 @@ class Login extends StatelessWidget {
                   isFixedHeight: false,
                   text: 'Submit',
                   pressEvent: () {
-                    submitLogindata(
+                    submitHttpLogindata(
                         context, usrController.text, pwdController.text);
                     // Navigator.push(context,MaterialPageRoute(
-                    //     builder: (_) => const MainApp(
+                    //     builder: (_) => const App(
                     //       passedColor: Colors.pink,
                     //       passedColorName: 'Pink',
                     //     ),),);},
@@ -118,7 +127,7 @@ class Login extends StatelessWidget {
                     // Navigator.pop(context, true);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MainApp()),
+                      MaterialPageRoute(builder: (context) => App()),
                     );
                   },
                 )
@@ -129,92 +138,92 @@ class Login extends StatelessWidget {
   }
 }
 
-modalDialog(BuildContext context) async {
-  return await AwesomeDialog(
-    context: context,
-    width: 600.0,
-    animType: AnimType.scale,
-    dialogType: DialogType.question,
-    keyboardAware: true,
-    body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          Text(
-            'Login to your Account',
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          //=========USERNAME===================
-          const SizedBox(
-            height: 10,
-          ),
-          Material(
-            elevation: 0,
-            color: Colors.blueGrey.withAlpha(40),
-            child: TextFormField(
-              autofocus: true,
-              minLines: 1,
-              controller: usrController,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                labelText: 'Username',
-                prefixIcon: Icon(Icons.person),
-              ),
-            ),
-          ),
-          //=========PASSWORD ==================
-          const SizedBox(
-            height: 10,
-          ),
-          Material(
-            elevation: 0,
-            color: Colors.blueGrey.withAlpha(40),
-            child: TextFormField(
-              obscureText: true,
-              autofocus: true,
-              controller: pwdController,
-              // keyboardType: TextInputType.text,
-              minLines: 1,
-              maxLines: 1,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                labelText: 'Password',
-                prefixIcon: Icon(Icons.lock),
-              ),
-            ),
-          ),
-          //=============SUBMIT BUTTON==================
-          const SizedBox(
-            height: 10,
-          ),
+// modalDialog(BuildContext context) async {
+//   return await AwesomeDialog(
+//     context: context,
+//     width: 600.0,
+//     animType: AnimType.scale,
+//     dialogType: DialogType.question,
+//     keyboardAware: true,
+//     body: Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Column(
+//         children: <Widget>[
+//           Text(
+//             'Login to your Account',
+//             style: Theme.of(context).textTheme.headline6,
+//           ),
+//           //=========USERNAME===================
+//           const SizedBox(
+//             height: 10,
+//           ),
+//           Material(
+//             elevation: 0,
+//             color: Colors.blueGrey.withAlpha(40),
+//             child: TextFormField(
+//               autofocus: true,
+//               minLines: 1,
+//               controller: usrController,
+//               decoration: const InputDecoration(
+//                 border: InputBorder.none,
+//                 labelText: 'Username',
+//                 prefixIcon: Icon(Icons.person),
+//               ),
+//             ),
+//           ),
+//           //=========PASSWORD ==================
+//           const SizedBox(
+//             height: 10,
+//           ),
+//           Material(
+//             elevation: 0,
+//             color: Colors.blueGrey.withAlpha(40),
+//             child: TextFormField(
+//               obscureText: true,
+//               autofocus: true,
+//               controller: pwdController,
+//               // keyboardType: TextInputType.text,
+//               minLines: 1,
+//               maxLines: 1,
+//               decoration: const InputDecoration(
+//                 border: InputBorder.none,
+//                 labelText: 'Password',
+//                 prefixIcon: Icon(Icons.lock),
+//               ),
+//             ),
+//           ),
+//           //=============SUBMIT BUTTON==================
+//           const SizedBox(
+//             height: 10,
+//           ),
 
-          AnimatedButton(
-            isFixedHeight: false,
-            text: 'Submit',
-            pressEvent: () {
-              submitLogindata(context, usrController.text, pwdController.text);
-              // Navigator.pop(context);
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          //============CLOSE BUTTON=================
-          AnimatedButton(
-            isFixedHeight: false,
-            color: Colors.green,
-            text: 'Close',
-            pressEvent: () {
-              Navigator.pop(context, true);
-            },
-          )
-        ],
-      ),
-    ),
-  ).show();
-}
+//           AnimatedButton(
+//             isFixedHeight: false,
+//             text: 'Submit',
+//             pressEvent: () {
+//               submitLogindata(context, usrController.text, pwdController.text);
+//               // Navigator.pop(context);
+//             },
+//           ),
+//           const SizedBox(
+//             height: 10,
+//           ),
+//           //============CLOSE BUTTON=================
+//           AnimatedButton(
+//             isFixedHeight: false,
+//             color: Colors.green,
+//             text: 'Close',
+//             pressEvent: () {
+//               Navigator.pop(context, true);
+//             },
+//           )
+//         ],
+//       ),
+//     ),
+//   ).show();
+// }
 
-void submitLogindata(context, String usr, String pwd) async {
+submitHttpLogindata(context, String usr, String pwd) async {
   var client = http.Client();
   try {
     final url = Uri.parse('http://localhost:9000/user/login');
@@ -249,9 +258,8 @@ void submitLogindata(context, String usr, String pwd) async {
       await sessionManager.set("TOKEN", responseJson['token']);
       await sessionManager.set("USERPIC", responseJson['userpicture']);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const MainApp()),
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => App()),
       );
       await sessionManager.update();
       okMsg(context);
@@ -263,7 +271,7 @@ void submitLogindata(context, String usr, String pwd) async {
   } catch (ex) {}
 }
 
-void submitForm(context, String usrname, String pwd) async {
+void submitDioLogindata(context, String usrname, String pwd) async {
   var dio = Dio();
   try {
     dio.options.headers['content-Type'] = 'application/json;charset=UTF-8';
