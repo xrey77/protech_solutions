@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'dart:html';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:protech_solutions/login.dart';
-// import 'package:protech_solutions/main.dart';
 import 'dart:convert';
 import 'utility.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:flutter_session/flutter_session.dart';
 
 final lastnameController = TextEditingController();
 final firstnameController = TextEditingController();
@@ -25,10 +21,6 @@ userRegistration(context) {
     dialogType: DialogType.success,
     dismissOnTouchOutside: false,
     autoDismiss: true,
-    // onDismissCallback: (type) {
-    //   print('onDismissCallback');
-    //   Navigator.of(context).pop(type);
-    // },
     keyboardAware: true,
     body: Padding(
       padding: const EdgeInsets.all(8.0),
@@ -257,7 +249,6 @@ submitSignupData(BuildContext context, String lname, String fname,
     }
   } on Exception catch (ex) {
     alertIOSMesage(context, ex.toString());
-    // print("Error 2 :");
   } finally {
     client.close();
   }

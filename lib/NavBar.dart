@@ -1,10 +1,9 @@
-import 'dart:convert';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:protech_solutions/aboutus.dart';
 import 'package:protech_solutions/contactus.dart';
-// import 'package:protech_solutions/getsession.dart';
 import 'package:protech_solutions/products/automated_teller.dart';
 import 'package:protech_solutions/products/self_service.dart';
 import 'package:protech_solutions/services/atm_monitoring.dart';
@@ -13,15 +12,11 @@ import 'package:protech_solutions/services/bank_software.dart';
 import 'package:protech_solutions/services/field_services.dart';
 import 'package:protech_solutions/share.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-// import 'package:get_it/get_it.dart';
-// import 'package:protech_solutions/locator.dart';
-// import 'getsession.dart';
 import 'login.dart';
 import 'main.dart';
 import 'signup.dart';
 
 String userName = "";
-List userX = [];
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -31,16 +26,12 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  // late String xName = "";
-
   @override
   void initState() {
     super.initState();
-    // print(xName);
     Future<void> getSession() async {
       try {
         var res = await SessionManager().get("USERNAME");
-        userX.add({"username": res});
         userName = "";
         setState(() {
           userName = res;
@@ -53,29 +44,66 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    // print("Username 2 A : " + userName);
-
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero, //REMOVE WHITE SPACE AT THE TOP
         children: [
+          //=====DISPLAY IF USER LOGGED IN========
           UserAccountsDrawerHeader(
-            accountName: Text(
-              userName,
-              style: const TextStyle(color: Colors.white),
-            ),
-            accountEmail: const Text(
-              "rey107@gmail.com",
-              style: TextStyle(color: Colors.white),
-            ),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.asset("assets/images/admin.jpeg", //USER IMAGE
-                    width: 90,
-                    height: 90,
-                    fit: BoxFit.cover),
-              ),
-            ),
+            accountName: (userName != "")
+                ? Text(
+                    userName,
+                    style: const TextStyle(
+                        color: Color.fromRGBO(255, 255, 255, 1)),
+                  )
+                : const Text(
+                    "PROTECH CORPORATION",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(10.0, 10.0),
+                          blurRadius: 3.0,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        )
+                      ],
+                    ),
+                  ),
+            accountEmail: (userName != "")
+                ? const Text(
+                    "rey107@gmail.com",
+                    style: TextStyle(color: Colors.white),
+                  )
+                : const Text(
+                    "PO Box 234324",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                    ),
+                  ),
+            //IDSPLAY AVATAR====
+            currentAccountPicture: (userName != "")
+                ? CircleAvatar(
+                    child: ClipOval(
+                      child:
+                          Image.asset("assets/images/admin.jpeg", //USER IMAGE
+                              width: 90,
+                              height: 90,
+                              fit: BoxFit.cover),
+                    ),
+                  )
+                //ELSE=====
+                : CircleAvatar(
+                    // child: ClipRect(
+                    backgroundColor: Colors.transparent,
+                    child: Image.asset("assets/images/protech.png", //USER IMAGE
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.fill),
+                    // ),
+                  ),
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
@@ -110,7 +138,6 @@ class _NavBarState extends State<NavBar> {
                       builder: (context) => const ATMonitoring()));
                 },
               ),
-
               ListTile(
                 title: const Text("Bank Software Solutions"),
                 onTap: () {
@@ -132,8 +159,6 @@ class _NavBarState extends State<NavBar> {
                       builder: (context) => const FieldServices()));
                 },
               ),
-
-              //more child menu
             ],
           ),
           ExpansionTile(
@@ -148,7 +173,6 @@ class _NavBarState extends State<NavBar> {
                       builder: (context) => const SelfService()));
                 },
               ),
-
               ListTile(
                 title: const Text("Automated Teller Safes"),
                 onTap: () {
@@ -156,14 +180,11 @@ class _NavBarState extends State<NavBar> {
                       builder: (context) => const AutomatedTeller()));
                 },
               ),
-
-              //more child menu
             ],
           ),
           ListTile(
             leading: const Icon(Icons.contact_phone),
             title: const Text("Contact Us"),
-            // ignore: avoid_print
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const ContactUs()));
@@ -172,33 +193,43 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             leading: const Icon(Icons.share),
             title: const Text("Share"),
-            // ignore: avoid_print
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const SharePage()));
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.person_pin),
-            title: const Text("Sign-In"),
-            onTap: () async {
-              await loginDialog(context);
-              // await Navigator.of(context).push(
-              //   MaterialPageRoute(builder: (context) => const LoginPage()),
-              // );
+          //=====SIGN-IN=====
+          (userName == "")
+              ? ListTile(
+                  leading: const Icon(Icons.person_pin),
+                  title: const Text("Sign-In"),
+                  onTap: () async {
+                    await loginDialog(context);
+                  })
+              : ListTile(
+                  leading: const Icon(Icons.person_pin),
+                  title: const Text("Sign-Out"),
+                  onTap: () async {
+                    await SessionManager().destroy();
+                    userName = "";
+                    Navigator.pop(context);
+                    window.close();
+                  }),
 
-              // await modalDialog(context);
-            },
-          ),
-          ListTile(
-              leading: const Icon(Icons.person_add),
-              title: const Text("Register"),
-              onTap: () {
-                userRegistration(context);
-              }),
+          //====REGISTER=====
+          (userName == "")
+              ? ListTile(
+                  leading: const Icon(Icons.person_add),
+                  title: (userName == "")
+                      ? const Text("Register")
+                      : const Text(""),
+                  onTap: () {
+                    userRegistration(context);
+                  })
+              : const Divider(),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
-            title: const Text("Exit"),
+            title: const Text("Quit"),
             onTap: () async {
               await SessionManager().destroy();
               userName = "";
@@ -210,8 +241,4 @@ class _NavBarState extends State<NavBar> {
       ),
     );
   }
-}
-
-void clearSession() async {
-  await SessionManager().destroy();
 }

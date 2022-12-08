@@ -1,22 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-// import 'dart:html';
-// import ‘package:flutter/foundation.dart’;
 // ignore: unnecessary_import
 import 'dart:io' show Platform;
-// import 'dart:ui';
-// import 'dart:core';
-// import 'package:desktop_window/desktop_window.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:protech_solutions/main.dart';
-// import 'package:http/http.dart';
 import 'utility.dart';
-// import 'dart:convert' as convert;
 import 'package:dio/dio.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-// import 'package:flutter/scheduler.dart';
 
 var usrController = TextEditingController();
 var pwdController = TextEditingController();
@@ -101,17 +93,6 @@ class LoginPage extends StatelessWidget {
                   pressEvent: () {
                     submitHttpLogindata(
                         context, usrController.text, pwdController.text);
-                    // Navigator.push(context,MaterialPageRoute(
-                    //     builder: (_) => const App(
-                    //       passedColor: Colors.pink,
-                    //       passedColorName: 'Pink',
-                    //     ),),);},
-
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const MainApp(appUsername: '')),
-                    // );
                   },
                 ),
                 const SizedBox(
@@ -249,18 +230,8 @@ submitHttpLogindata(context, String usr, String pwd) async {
     Map<String, dynamic> responseJson = jsonDecode(response.body);
     if (statuscode == 200) {
       var sessionManager = SessionManager();
-
       await sessionManager.destroy();
       await sessionManager.update();
-
-      // User1 user1 = User1(
-      //     id: responseJson['id'],
-      //     name: responseJson['username'],
-      //     role: responseJson['role'],
-      //     token: responseJson['token'],
-      //     userpic: responseJson['userpicture']);
-      // await sessionManager.set("user1", user1);
-
       await sessionManager.set("USERID", responseJson['id']);
       await sessionManager.set("USERNAME", responseJson['username']);
       await sessionManager.set("ROLE", responseJson['role']);
@@ -324,12 +295,6 @@ okMsg(context) {
   } catch (ex) {
     alertIOSMesage(context, "You have successfully logged-in to your account.");
   }
-  // Navigator.push(
-  //   context,
-  //   MaterialPageRoute(builder: (context) => const NavBar()),
-  // );
-
-  // Navigator.pop(context, true);
 }
 
 void errMsg(context, int? code) {
@@ -371,3 +336,5 @@ void errMsg(context, int? code) {
     }
   }
 }
+
+submitChopperLogindata(context, String usr, String pwd) async {}
