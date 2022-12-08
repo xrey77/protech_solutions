@@ -43,15 +43,7 @@ class App extends StatelessWidget {
     //   print(e);
     // }
     // ;
-    // xName = _userName as Future<void>;
-    // // ignore: avoid_print
-    // print(xName);
 
-    // return MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: appName,
-    //   home: HomePage,
-    // );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appName,
@@ -59,12 +51,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-void clearSession() async {
-  await SessionManager().destroy();
-}
-
-// Future<void> getSessionz() async {
-//   dynamic xname = await SessionManager().get("USERNAME");
-//   _userName = xname;
-// }

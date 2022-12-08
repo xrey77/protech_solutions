@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 // import 'dart:html';
 // import ‘package:flutter/foundation.dart’;
+// ignore: unnecessary_import
 import 'dart:io' show Platform;
 // import 'dart:ui';
 // import 'dart:core';
@@ -10,25 +11,24 @@ import 'dart:io' show Platform;
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'package:protech_solutions/main.dart';
-// import 'package:protech_solutions/navbar.dart';
-// import 'package:protech_solutions/navbar.dart';
 // import 'package:http/http.dart';
-// import 'package:protech_solutions/signup.dart';
-// import 'models/userlogin.dart';
 import 'utility.dart';
 // import 'dart:convert' as convert;
 import 'package:dio/dio.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 // import 'package:flutter/scheduler.dart';
 
-final usrController = TextEditingController();
-final pwdController = TextEditingController();
+var usrController = TextEditingController();
+var pwdController = TextEditingController();
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    usrController.clear();
+    pwdController.clear();
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Protech Corporation",
@@ -81,7 +81,6 @@ class LoginPage extends StatelessWidget {
                     obscureText: true,
                     autofocus: true,
                     controller: pwdController,
-                    // keyboardType: TextInputType.text,
                     minLines: 1,
                     maxLines: 1,
                     decoration: const InputDecoration(
@@ -138,92 +137,97 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// modalDialog(BuildContext context) async {
-//   return await AwesomeDialog(
-//     context: context,
-//     width: 600.0,
-//     animType: AnimType.scale,
-//     dialogType: DialogType.question,
-//     keyboardAware: true,
-//     body: Padding(
-//       padding: const EdgeInsets.all(8.0),
-//       child: Column(
-//         children: <Widget>[
-//           Text(
-//             'Login to your Account',
-//             style: Theme.of(context).textTheme.headline6,
-//           ),
-//           //=========USERNAME===================
-//           const SizedBox(
-//             height: 10,
-//           ),
-//           Material(
-//             elevation: 0,
-//             color: Colors.blueGrey.withAlpha(40),
-//             child: TextFormField(
-//               autofocus: true,
-//               minLines: 1,
-//               controller: usrController,
-//               decoration: const InputDecoration(
-//                 border: InputBorder.none,
-//                 labelText: 'Username',
-//                 prefixIcon: Icon(Icons.person),
-//               ),
-//             ),
-//           ),
-//           //=========PASSWORD ==================
-//           const SizedBox(
-//             height: 10,
-//           ),
-//           Material(
-//             elevation: 0,
-//             color: Colors.blueGrey.withAlpha(40),
-//             child: TextFormField(
-//               obscureText: true,
-//               autofocus: true,
-//               controller: pwdController,
-//               // keyboardType: TextInputType.text,
-//               minLines: 1,
-//               maxLines: 1,
-//               decoration: const InputDecoration(
-//                 border: InputBorder.none,
-//                 labelText: 'Password',
-//                 prefixIcon: Icon(Icons.lock),
-//               ),
-//             ),
-//           ),
-//           //=============SUBMIT BUTTON==================
-//           const SizedBox(
-//             height: 10,
-//           ),
+loginDialog(BuildContext context) async {
+  usrController.clear();
+  pwdController.clear();
+  return await AwesomeDialog(
+    context: context,
+    width: 600.0,
+    animType: AnimType.scale,
+    dialogType: DialogType.question,
+    dismissOnTouchOutside: false,
+    keyboardAware: true,
+    body: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'Login to your Account',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          //=========USERNAME===================
+          const SizedBox(
+            height: 10,
+          ),
+          Material(
+            elevation: 0,
+            color: Colors.blueGrey.withAlpha(40),
+            child: TextFormField(
+              autofocus: true,
+              minLines: 1,
+              controller: usrController,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                labelText: 'Username',
+                prefixIcon: Icon(Icons.person),
+              ),
+            ),
+          ),
+          //=========PASSWORD ==================
+          const SizedBox(
+            height: 10,
+          ),
+          Material(
+            elevation: 0,
+            color: Colors.blueGrey.withAlpha(40),
+            child: TextFormField(
+              obscureText: true,
+              autofocus: true,
+              controller: pwdController,
+              minLines: 1,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                labelText: 'Password',
+                prefixIcon: Icon(Icons.lock),
+              ),
+            ),
+          ),
+          //=============SUBMIT BUTTON==================
+          const SizedBox(
+            height: 10,
+          ),
 
-//           AnimatedButton(
-//             isFixedHeight: false,
-//             text: 'Submit',
-//             pressEvent: () {
-//               submitLogindata(context, usrController.text, pwdController.text);
-//               // Navigator.pop(context);
-//             },
-//           ),
-//           const SizedBox(
-//             height: 10,
-//           ),
-//           //============CLOSE BUTTON=================
-//           AnimatedButton(
-//             isFixedHeight: false,
-//             color: Colors.green,
-//             text: 'Close',
-//             pressEvent: () {
-//               Navigator.pop(context, true);
-//             },
-//           )
-//         ],
-//       ),
-//     ),
-//   ).show();
-// }
+          AnimatedButton(
+            isFixedHeight: false,
+            text: 'Submit',
+            pressEvent: () {
+              submitHttpLogindata(
+                  context, usrController.text, pwdController.text);
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          //============CLOSE BUTTON=================
+          AnimatedButton(
+            isFixedHeight: false,
+            color: Colors.green,
+            text: 'Close',
+            pressEvent: () {
+              Navigator.pop(context, true);
+            },
+          )
+        ],
+      ),
+    ),
+  ).show();
+}
 
 submitHttpLogindata(context, String usr, String pwd) async {
+  if (usr.isEmpty || pwd.isEmpty) {
+    emptyMsg(context);
+    return;
+  }
   var client = http.Client();
   try {
     final url = Uri.parse('http://localhost:9000/user/login');
@@ -246,22 +250,26 @@ submitHttpLogindata(context, String usr, String pwd) async {
     if (statuscode == 200) {
       var sessionManager = SessionManager();
 
-      await sessionManager.remove("USERID");
-      await sessionManager.remove("USERNAME");
-      await sessionManager.remove("ROLE");
-      await sessionManager.remove("TOKEN");
-      await sessionManager.remove("USERPIC");
+      await sessionManager.destroy();
+      await sessionManager.update();
+
+      // User1 user1 = User1(
+      //     id: responseJson['id'],
+      //     name: responseJson['username'],
+      //     role: responseJson['role'],
+      //     token: responseJson['token'],
+      //     userpic: responseJson['userpicture']);
+      // await sessionManager.set("user1", user1);
 
       await sessionManager.set("USERID", responseJson['id']);
       await sessionManager.set("USERNAME", responseJson['username']);
       await sessionManager.set("ROLE", responseJson['role']);
       await sessionManager.set("TOKEN", responseJson['token']);
       await sessionManager.set("USERPIC", responseJson['userpicture']);
-
+      responseJson.clear();
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => App()),
       );
-      await sessionManager.update();
       okMsg(context);
     } else {
       int? code = statuscode;
@@ -289,6 +297,18 @@ void submitDioLogindata(context, String usrname, String pwd) async {
   } on DioError catch (e) {
     int? code = e.response?.statusCode;
     errMsg(context, code);
+  }
+}
+
+emptyMsg(context) {
+  try {
+    if (Platform.isIOS || Platform.isMacOS) {
+      alertIOSMesage(context, "Username and Password should not be empty.");
+    } else if (Platform.isAndroid) {
+      alertANDROIDMesage(context, "Username and Password should not be empty.");
+    }
+  } catch (ex) {
+    alertIOSMesage(context, "Username and Password should not be empty.");
   }
 }
 
@@ -327,7 +347,7 @@ void errMsg(context, int? code) {
     try {
       if (Platform.isIOS || Platform.isMacOS) {
         alertIOSMesage(context,
-            "Username is not yet registered, please click register link at the top right of the screen.");
+            "Username is not yet registered, please click register link at the top right bar of the screen.");
       } else if (Platform.isAndroid) {
         alertANDROIDMesage(context,
             "Username is not yet registered, please click register link at the top right of the screen.");

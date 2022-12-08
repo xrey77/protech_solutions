@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:protech_solutions/aboutus.dart';
 import 'package:protech_solutions/contactus.dart';
+// import 'package:protech_solutions/getsession.dart';
 import 'package:protech_solutions/products/automated_teller.dart';
 import 'package:protech_solutions/products/self_service.dart';
 import 'package:protech_solutions/services/atm_monitoring.dart';
@@ -8,7 +12,7 @@ import 'package:protech_solutions/services/atm_parts.dart';
 import 'package:protech_solutions/services/bank_software.dart';
 import 'package:protech_solutions/services/field_services.dart';
 import 'package:protech_solutions/share.dart';
-// import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 // import 'package:get_it/get_it.dart';
 // import 'package:protech_solutions/locator.dart';
 // import 'getsession.dart';
@@ -16,21 +20,49 @@ import 'login.dart';
 import 'main.dart';
 import 'signup.dart';
 
-// import 'package:flutter_session_manager/flutter_session_manager.dart';
+String userName = "";
+List userX = [];
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
 
   @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+  // late String xName = "";
+
+  @override
+  void initState() {
+    super.initState();
+    // print(xName);
+    Future<void> getSession() async {
+      try {
+        var res = await SessionManager().get("USERNAME");
+        userX.add({"username": res});
+        userName = "";
+        setState(() {
+          userName = res;
+        });
+      } catch (e) {}
+    }
+
+    getSession();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // print("Username 2 A : " + userName);
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero, //REMOVE WHITE SPACE AT THE TOP
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text(
-              "Reynald",
-              style: TextStyle(color: Colors.white),
+            accountName: Text(
+              userName,
+              style: const TextStyle(color: Colors.white),
             ),
             accountEmail: const Text(
               "rey107@gmail.com",
@@ -53,21 +85,18 @@ class NavBar extends StatelessWidget {
             ),
           ),
           ListTile(
-              leading: const Icon(Icons.favorite),
+              leading: const Icon(Icons.home),
               title: const Text("Home"),
-              // ignore: avoid_print
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => App()),
-                );
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => App()));
               }),
           ListTile(
-              leading: const Icon(Icons.favorite),
+              leading: const Icon(Icons.info_sharp),
               title: const Text("About Us"),
-              // ignore: avoid_print
               onTap: () {
-                // ABOUT US
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AboutusPage()));
               }),
           ExpansionTile(
             title: const Text("Services"),
@@ -153,9 +182,10 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.person_pin),
             title: const Text("Sign-In"),
             onTap: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
+              await loginDialog(context);
+              // await Navigator.of(context).push(
+              //   MaterialPageRoute(builder: (context) => const LoginPage()),
+              // );
 
               // await modalDialog(context);
             },
@@ -170,8 +200,10 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app),
             title: const Text("Exit"),
             onTap: () async {
-              // await SessionManager().destroy();
+              await SessionManager().destroy();
+              userName = "";
               Navigator.pop(context);
+              window.close();
             },
           ),
         ],
@@ -180,14 +212,6 @@ class NavBar extends StatelessWidget {
   }
 }
 
-// xgetSession() {
-//   String xname = "";
-//   try {
-//     dynamic uname = SessionManager().get("USERNAME");
-//     xname = uname.toString();
-//   } catch (e) {
-//     xname = "Error";
-//   }
-
-//   return xname;
-// }
+void clearSession() async {
+  await SessionManager().destroy();
+}
