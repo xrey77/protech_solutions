@@ -237,6 +237,8 @@ submitHttpLogindata(context, String usr, String pwd) async {
       await sessionManager.set("ROLE", responseJson['role']);
       await sessionManager.set("TOKEN", responseJson['token']);
       await sessionManager.set("USERPIC", responseJson['userpicture']);
+      await sessionManager.set("EMAIL", responseJson['email']);
+      await sessionManager.set("FULLNAME", responseJson['fullname']);
       responseJson.clear();
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => App()),

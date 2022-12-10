@@ -1,6 +1,5 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:protech_solutions/aboutus.dart';
 import 'package:protech_solutions/contactus.dart';
@@ -15,8 +14,12 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'login.dart';
 import 'main.dart';
 import 'signup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String userName = "";
+String eMail = "";
+String fullName = "";
+String userPic = "";
 
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
@@ -31,10 +34,20 @@ class _NavBarState extends State<NavBar> {
     super.initState();
     Future<void> getSession() async {
       try {
-        var res = await SessionManager().get("USERNAME");
+        var res1 = await SessionManager().get("USERNAME");
+        var res2 = await SessionManager().get("EMAIL");
+        var res3 = await SessionManager().get("FULLNAME");
+        var res4 = await SessionManager().get("USERPIC");
+
         userName = "";
+        eMail = "";
+        fullName = "";
+        userPic = "";
         setState(() {
-          userName = res;
+          userName = res1;
+          eMail = res2;
+          fullName = res3;
+          userPic = res4;
         });
       } catch (e) {}
     }
@@ -44,6 +57,14 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final Uri mail = Uri(
+      scheme: 'mailto',
+      path: eMail,
+      // query: encodeQueryParameters(<String, String>{
+      //   'subject': 'Example Subject & Symbols are allowed!',
+      // }),
+    );
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero, //REMOVE WHITE SPACE AT THE TOP
@@ -52,7 +73,7 @@ class _NavBarState extends State<NavBar> {
           UserAccountsDrawerHeader(
             accountName: (userName != "")
                 ? Text(
-                    userName,
+                    fullName,
                     style: const TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1)),
                   )
@@ -72,10 +93,31 @@ class _NavBarState extends State<NavBar> {
                     ),
                   ),
             accountEmail: (userName != "")
-                ? const Text(
-                    "rey107@gmail.com",
-                    style: TextStyle(color: Colors.white),
+                ? GestureDetector(
+                    // TEXT ONTAP EVENT
+                    onTap: () {
+                      // LAUNCH EMAIL CLIENT
+                      launchUrl(mail);
+                    },
+                    child: MouseRegion(
+                        //CHANGE CURSOR POINTER
+                        cursor: SystemMouseCursors.grab,
+                        //DISPLAY TEXT
+                        child: Text(
+                          eMail,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 220, 231, 236),
+                            decoration: TextDecoration.underline,
+                            decorationStyle: TextDecorationStyle.solid,
+                            decorationThickness: 2,
+                            decorationColor: Colors.white,
+                          ),
+                        )),
                   )
+                // Text(
+                //     '{mailto:$eMail}',
+                //     style: const TextStyle(color: Colors.white),
+                //   )
                 : const Text(
                     "PO Box 234324",
                     style: TextStyle(
@@ -87,11 +129,10 @@ class _NavBarState extends State<NavBar> {
             currentAccountPicture: (userName != "")
                 ? CircleAvatar(
                     child: ClipOval(
-                      child:
-                          Image.asset("assets/images/admin.jpeg", //USER IMAGE
-                              width: 90,
-                              height: 90,
-                              fit: BoxFit.cover),
+                      child: Image.network(userPic, //USER IMAGE
+                          width: 90,
+                          height: 90,
+                          fit: BoxFit.cover),
                     ),
                   )
                 //ELSE=====
