@@ -224,7 +224,7 @@ submitHttpLogindata(context, String usr, String pwd) async {
 
     final response = await client.post(url,
         headers: hdrs, body: jsonbody, encoding: encoding);
-    final HttpSession s;
+    // final HttpSession s;
 
     var statuscode = response.statusCode;
     Map<String, dynamic> responseJson = jsonDecode(response.body);

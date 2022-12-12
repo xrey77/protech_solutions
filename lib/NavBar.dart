@@ -61,7 +61,7 @@ class _NavBarState extends State<NavBar> {
       scheme: 'mailto',
       path: eMail,
       // query: encodeQueryParameters(<String, String>{
-      //   'subject': 'Example Subject & Symbols are allowed!',
+      //   'subject': 'Subject here....',
       // }),
     );
 
@@ -114,10 +114,6 @@ class _NavBarState extends State<NavBar> {
                           ),
                         )),
                   )
-                // Text(
-                //     '{mailto:$eMail}',
-                //     style: const TextStyle(color: Colors.white),
-                //   )
                 : const Text(
                     "PO Box 234324",
                     style: TextStyle(
